@@ -1,0 +1,26 @@
+<form style="height: 200px; width: 400px; margin: 10%;">
+  <div *ngFor="let item of data">
+    {{ item.name }}
+    <button class="btn btn-warning float-end" style="margin-right: 20px;" (click)="deleteItem(item.id)">Delete</button>
+    <a class="btn btn-primary float-end" style="margin-right: 20px;" [routerLink]="['/details', item.id]" (click)="navigateToview()">
+  view
+    </a>
+    <ng-container *ngIf="item.showDetails">
+      <div>{{ item.city }}</div>
+    </ng-container>
+    <ng-container *ngIf="!item.editing">
+      <a class="btn btn-success float-end" style="margin-right: 40px;" [routerLink]="['/edit', item.id]">Edit</a>
+      <br><br>
+    </ng-container>
+ <ng-container *ngIf="item.editing">
+      <br>
+      <input [(ngModel)]="item.name" name="name" />
+      <input [(ngModel)]="item.city" name="city" />
+      <button (click)="saveEdit(item)">Save</button>
+      <button (click)="cancelEdit(item)">Cancel</button>
+    </ng-container>
+  </div>
+  <button class="btn btn-success float-end" style="margin-right: 20px;" (click)="navigateToAddUser()">Add User</button>
+
+  <router-outlet></router-outlet>
+</form>
